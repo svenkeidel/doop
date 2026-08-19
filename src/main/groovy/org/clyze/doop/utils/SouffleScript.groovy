@@ -219,7 +219,10 @@ class SouffleScript {
 		log.debug "Execution command: ${cmd}"
 		log.info "Running analysis"
 		executionTime = Helper.timing {
+			long start = System.nanoTime();
 			executor.enableMonitor(monitoringInterval, monitorClosure).execute(executionCommand).disableMonitor()
+			long end = System.nanoTime();
+			Files.writeString(db.toPath().resolve("analysis-execution-time.txt"), Long.valueOf(end - start).toString())
 		}
 		log.info "Analysis execution time (sec): $executionTime"
 

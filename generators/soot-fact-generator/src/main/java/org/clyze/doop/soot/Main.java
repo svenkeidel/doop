@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -292,6 +294,8 @@ public class Main {
 
         if (writeFacts) {
 
+            long start = System.nanoTime();
+
             writer.writePreliminaryFacts(classes, java, sootParameters._debug);
             db.flush();
 
@@ -326,6 +330,10 @@ public class Main {
             }
 
             writer.writeLastFacts(java);
+
+            long end = System.nanoTime();
+
+            Files.writeString(Paths.get(db.getDirectory()).resolve("facts-generation-time.txt"), Long.valueOf(end - start).toString());
         }
 
         // Communicate data structures to next stages of the pipeline.
