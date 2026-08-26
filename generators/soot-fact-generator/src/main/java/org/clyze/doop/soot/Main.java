@@ -97,7 +97,6 @@ public class Main {
         } else if (sootParameters._android) {
             if (sootParameters.getInputs().size() > 1)
                 logWarn(logger, "WARNING: Android mode: all inputs will be preprocessed but only " + sootParameters.getInputs().get(0) + " will be considered as application file. The rest of the input files may be ignored by Soot.\n");
-            Options.v().set_process_multiple_dex(true);
             Options.v().set_src_prec(Options.src_prec_apk);
             if (sootParameters._androidJars == null)
                 logWarn(logger, "WARNING: missing --android-jars option.");
