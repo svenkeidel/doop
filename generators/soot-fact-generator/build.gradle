@@ -10,12 +10,15 @@ repositories {
     mavenCentral()
     maven { url='https://jitpack.io' }
     maven { url='https://maven.google.com/' }
-    maven { url='https://ssebuild.sit.fraunhofer.de/nexus/repository/maven-mixed'}
+    maven {
+        url = 'https://ssebuild.sit.fraunhofer.de/nexus/repository/maven-mixed'
+        allowInsecureProtocol = true
+    }
 }
 
 dependencies {
     api project(path: ':generators:fact-generator-common', configuration: 'shadow')
-    implementation("org.soot-oss:soot:4.8.0-SNAPSHOT") {
+    implementation("org.soot-oss:soot:4.8.0-20260904.055152-160") {
         exclude group: "com.google.guava", module: "guava"
     }
     implementation "com.google.guava:guava:33.5.0-jre"
