@@ -464,7 +464,10 @@ Closure shadowDep = { Task it ->
 }
 
 tasks.register('logicFilesJar', Jar) {
-    into('souffle-logic') { from "souffle-logic" }
+    archiveClassifier.set('logic-files')
+    into('souffle-logic') {
+        from "souffle-logic"
+    }
 }
 
 tasks.named("generateMetadataFileForMavenJavaPublication") {
@@ -483,10 +486,7 @@ tasks.withType(PublishToMavenLocal).configureEach {
          mavenJava(MavenPublication) {
              artifact(tasks.named("sourcesJar"))
              artifact(tasks.named("javadocJar"))
-
-             artifact(tasks.named("logicFilesJar")) {
-                 classifier = "logic-files"
-             }
+             artifact(tasks.named("logicFilesJar"))
          }
 
          // Publish fact-generator-common and code-processor.
